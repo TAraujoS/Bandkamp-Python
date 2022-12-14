@@ -1,8 +1,13 @@
 from rest_framework import serializers
 from .models import User
+from rest_framework.validators import UniqueValidator
 
 
 class UserSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(
+        validators=[UniqueValidator(User.objects.all(), "This field must be unique.")]
+    )
+
     class Meta:
         model = User
         fields = [

@@ -1,12 +1,9 @@
 from rest_framework import serializers
-from users.serializers import UserSerializer
 from .models import Album
 
 
 class AlbumSerializer(serializers.ModelSerializer):
-    # user = UserSerializer(read_only=True)
-
     class Meta:
         model = Album
-        fields = "__all__"
-        read_only_fields = ["user"]
+        fields = ["id", "name", "year", "user_id"]
+        read_only_fields = ["id", "user_id"]

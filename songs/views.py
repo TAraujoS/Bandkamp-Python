@@ -6,6 +6,7 @@ from .serializers import SongSerializer
 from albums.models import Album
 from rest_framework import generics
 from django.shortcuts import get_object_or_404
+import ipdb
 
 
 class SongView(generics.ListCreateAPIView, PageNumberPagination):
@@ -14,3 +15,7 @@ class SongView(generics.ListCreateAPIView, PageNumberPagination):
 
     queryset = Song.objects.all()
     serializer_class = SongSerializer
+
+    def perform_create(self, serializer):
+        album = get_object_or_404(Album, pk=self.kwargs["pk"])
+        return serializer.save(album=album)
