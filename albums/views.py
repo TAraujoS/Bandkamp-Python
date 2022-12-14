@@ -27,4 +27,4 @@ class AlbumView(generics.ListCreateAPIView, PageNumberPagination):
     serializer_class = AlbumSerializer
 
     def perform_create(self, serializer):
-        return serializer.save(user_id=self.request.user.id)
+        return serializer.save(user=self.request.user)
